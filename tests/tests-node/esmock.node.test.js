@@ -507,12 +507,17 @@ test('should error when "strictest" mock tree module not mocked', async () => {
   })
 })
 
-test('should mock packages starting with @', async () => {
-  const main = await esmock('../local/importsAtPackage.js', {
-    '@stuff': {
-      default: { routes: [] }
-    }
-  })
+test("should mock packages starting with @", async () => {
+  const main = await esmock(
+    "../local/importsAtPackage.js",
+    {
+      "@stuff": {
+        default: { routes: [] },
+      },
+    },
+    undefined,
+    { isModuleNotFoundError: false }
+  );
 
-  assert.strictEqual(main.routes, []);
-})
+  assert.deepEqual(main.routes, []);
+});
