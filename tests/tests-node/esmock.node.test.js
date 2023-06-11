@@ -506,3 +506,13 @@ test('should error when "strictest" mock tree module not mocked', async () => {
         .replace(':parent', 'importsCoreLocalAndPackage.js'))
   })
 })
+
+test('should mock packages starting with @', async () => {
+  const main = await esmock('../local/importsAtPackage.js', {
+    '@stuff': {
+      default: { routes: [] }
+    }
+  })
+
+  assert.strictEqual(main.routes, []);
+})
